@@ -27,7 +27,6 @@
     "vite": "^7.3.1"
   },
   "dependencies": {
-    "jq": "^1.7.2",
     "vibe-kanban-web-companion": "^0.0.5"
   }
 }

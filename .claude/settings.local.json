@@ -9,7 +9,11 @@
       "Bash(git pull:*)",
       "Bash(find:*)",
       "Bash(ls:*)",
-      "Bash(.specify/scripts/bash/create-new-feature.sh:*)"
+      "Bash(.specify/scripts/bash/create-new-feature.sh:*)",
+      "mcp__linear-server__list_teams",
+      "mcp__linear-server__list_projects",
+      "mcp__linear-server__create_issue",
+      "mcp__linear-server__list_issues"
     ]
   }
 }
