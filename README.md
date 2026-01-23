@@ -10,4 +10,4 @@ All bootcamp content, exercises, and learning materials are located in the [Cour
 
 The rest of the repo provides a small todo application built with vanilla HTML, CSS, and JavaScript is provided to test your AI-empowered development skills.
 
-Start here: [Getting Started](1-getting-started.md) ⭐️
+Start here: [Getting Started](./Course%20Material/1-getting-started.md) ⭐️
