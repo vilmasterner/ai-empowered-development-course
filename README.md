@@ -6,7 +6,7 @@ All bootcamp content, exercises, and learning materials are located in the [Cour
 
 🚜 This project will continue to be developed and include further modules in the future.
 
-## Exercise Setup
+## Setup
 
 The rest of the repo provides a small todo application built with vanilla HTML, CSS, and JavaScript is provided to test your AI-empowered development skills.
 
