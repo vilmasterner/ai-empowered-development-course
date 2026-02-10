@@ -213,6 +213,28 @@ footer {
     font-weight: 600;
 }
 
+/* Priority indicators */
+.priority-indicator {
+    font-weight: 700;
+    margin-right: 0.25rem;
+}
+
+.priority-indicator.priority-high {
+    color: #ef4444;
+}
+
+.priority-indicator.priority-low {
+    color: #fbbf24;
+}
+
+.todo-item.priority-high {
+    border-left: 4px solid #ef4444;
+}
+
+.todo-item.priority-low {
+    border-left: 4px solid #fbbf24;
+}
+
 .todo-delete {
     flex-shrink: 0;
     padding: 0.5rem 0.75rem;
