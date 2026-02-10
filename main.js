@@ -75,6 +75,7 @@ function initVibeKanban() {
 function addTodo() {
     const input = document.getElementById('todoInput');
     const dateInput = document.getElementById('dueDateInput');
+    const userNameInput = document.getElementById('userNameInput');
     const text = input.value.trim();
 
     if (text === '') return;
@@ -83,7 +84,8 @@ function addTodo() {
         id: nextId++,
         text: text,
         completed: false,
-        dueDate: dateInput.value || null
+        dueDate: dateInput.value || null,
+        userName: userNameInput.value.trim() || null
     });
 
     input.value = '';
@@ -124,12 +126,18 @@ function renderTodos() {
         const dueDateHtml = todo.dueDate
             ? `<span class="todo-date" ${isOverdue ? 'data-overdue="true"' : ''}>${formatDueDate(todo.dueDate)}</span>`
             : '';
+        const userNameHtml = todo.userName
+            ? `<span class="todo-user">${escapeHtml(todo.userName)}</span>`
+            : '';
 
         li.innerHTML = `
             <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''}>
             <div class="todo-content">
                 <span class="todo-text">${escapeHtml(todo.text)}</span>
-                ${dueDateHtml}
+                <div class="todo-meta">
+                    ${userNameHtml}
+                    ${dueDateHtml}
+                </div>
             </div>
             <button class="todo-delete">Delete</button>
         `;
@@ -261,10 +269,11 @@ function loadTodos() {
 
             // Validate it's an array
             if (Array.isArray(parsed)) {
-                // Normalize todos: ensure dueDate exists (undefined -> null)
+                // Normalize todos: ensure dueDate and userName exist (undefined -> null)
                 todos = parsed.map(todo => ({
                     ...todo,
-                    dueDate: todo.dueDate || null
+                    dueDate: todo.dueDate || null,
+                    userName: todo.userName || null
                 }));
 
                 // Calculate nextId from loaded todos
