@@ -7,7 +7,7 @@
 :root {
     --color-primary: #3b82f6;
     --color-background: #ffffff;
-    --color-text: #1f2937;
+    --color-text: #ffa500;
     --spacing: 1rem;
 }
 
@@ -36,7 +36,7 @@ footer {
     border-top: 1px solid #e5e7eb;
     text-align: center;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: #ffa500;
 }
 
 .container {
@@ -49,14 +49,24 @@ footer {
     display: flex;
     gap: var(--spacing);
     margin-bottom: 2rem;
+    flex-wrap: wrap;
 }
 
-.input-section input {
+.input-section input[type="text"] {
     flex: 1;
+    min-width: 200px;
     padding: 0.75rem;
     border: 1px solid #d1d5db;
     border-radius: 0.375rem;
     font-size: 1rem;
+}
+
+.input-section input[type="date"] {
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .input-section input:focus {
@@ -67,7 +77,7 @@ footer {
 
 .input-section button {
     padding: 0.75rem 1.5rem;
-    background-color: var(--color-primary);
+    background-color: #ffa500;
     color: white;
     border: none;
     border-radius: 0.375rem;
@@ -78,11 +88,11 @@ footer {
 }
 
 .input-section button:hover {
-    background-color: #2563eb;
+    background-color: #e69500;
 }
 
 .input-section button:active {
-    background-color: #1d4ed8;
+    background-color: #cc8400;
 }
 
 /* Filter buttons (Feature 2) */
@@ -109,9 +119,37 @@ footer {
 }
 
 .filter-btn.active {
-    background-color: var(--color-primary);
+    background-color: #ffa500;
     color: white;
-    border-color: var(--color-primary);
+    border-color: #ffa500;
+}
+
+/* Sort buttons (Feature 3) - Same style as filter buttons */
+.sort-btn {
+    padding: 0.5rem 1rem;
+    background-color: #f3f4f6;
+    color: var(--color-text);
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sort-btn:hover {
+    background-color: #e5e7eb;
+}
+
+.sort-btn.active {
+    background-color: #ffa500;
+    color: white;
+    border-color: #ffa500;
+}
+
+.filter-divider {
+    color: #d1d5db;
+    font-weight: 300;
+    user-select: none;
 }
 
 /* Todo list (Feature 1) */
@@ -141,7 +179,7 @@ footer {
 
 .todo-item.completed .todo-text {
     text-decoration: line-through;
-    color: #9ca3af;
+    color: #ffa500;
 }
 
 .todo-checkbox {
@@ -152,9 +190,27 @@ footer {
     accent-color: var(--color-primary);
 }
 
-.todo-text {
+.todo-content {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.todo-text {
     word-break: break-word;
+    font-size: 1rem;
+}
+
+.todo-date {
+    font-size: 0.75rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.todo-date[data-overdue="true"] {
+    color: #ef4444;
+    font-weight: 600;
 }
 
 .todo-delete {
