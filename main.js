@@ -80,12 +80,25 @@ function addTodo() {
 
     if (text === '') return;
 
+    // Parse priority from text
+    let priority = 'normal'; // 'low', 'normal', 'high'
+    let cleanedText = text;
+
+    if (text.endsWith('!!')) {
+        priority = 'high';
+        cleanedText = text.slice(0, -2).trim();
+    } else if (text.endsWith('!')) {
+        priority = 'low';
+        cleanedText = text.slice(0, -1).trim();
+    }
+
     todos.push({
         id: nextId++,
-        text: text,
+        text: cleanedText,
         completed: false,
         dueDate: dateInput.value || null,
-        userName: userNameInput.value.trim() || null
+        userName: userNameInput.value.trim() || null,
+        priority: priority
     });
 
     input.value = '';
@@ -121,6 +134,7 @@ function renderTodos() {
         const li = document.createElement('li');
         li.className = 'todo-item';
         if (todo.completed) li.classList.add('completed');
+        if (todo.priority) li.classList.add(`priority-${todo.priority}`);
 
         const isOverdue = todo.dueDate && isPast(parseISO(todo.dueDate)) && !isToday(parseISO(todo.dueDate));
         const dueDateHtml = todo.dueDate
@@ -130,10 +144,12 @@ function renderTodos() {
             ? `<span class="todo-user">${escapeHtml(todo.userName)}</span>`
             : '';
 
+        const priorityIndicator = getPriorityIndicator(todo.priority);
+
         li.innerHTML = `
             <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''}>
             <div class="todo-content">
-                <span class="todo-text">${escapeHtml(todo.text)}</span>
+                <span class="todo-text">${priorityIndicator}${escapeHtml(todo.text)}</span>
                 <div class="todo-meta">
                     ${userNameHtml}
                     ${dueDateHtml}
@@ -235,6 +251,16 @@ function setSort(sortType) {
     renderTodos();
 }
 
+// Utility function to get priority indicator
+function getPriorityIndicator(priority) {
+    if (priority === 'high') {
+        return '<span class="priority-indicator priority-high">!!</span> ';
+    } else if (priority === 'low') {
+        return '<span class="priority-indicator priority-low">!</span> ';
+    }
+    return '';
+}
+
 // Utility function to escape HTML
 function escapeHtml(text) {
     const div = document.createElement('div');
@@ -269,11 +295,12 @@ function loadTodos() {
 
             // Validate it's an array
             if (Array.isArray(parsed)) {
-                // Normalize todos: ensure dueDate and userName exist (undefined -> null)
+                // Normalize todos: ensure dueDate, userName, and priority exist
                 todos = parsed.map(todo => ({
                     ...todo,
                     dueDate: todo.dueDate || null,
-                    userName: todo.userName || null
+                    userName: todo.userName || null,
+                    priority: todo.priority || 'normal'
                 }));
 
                 // Calculate nextId from loaded todos
